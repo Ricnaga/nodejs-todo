@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { checksExistsUserAccount } = require("../middleware");
+const { checksExistsUserAccount, checksTodoExists } = require("../middleware");
 
 const todosRoutes = Router();
 
@@ -31,57 +31,37 @@ todosRoutes.get("/", checksExistsUserAccount, (request, response) => {
 });
 
 
-todosRoutes.put("/:id", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+todosRoutes.put('/:id', checksTodoExists, (request, response) => {
   const { title, deadline } = request.body;
-  const { id } = request.params;
-  const { userFound } = request;
+  const { todo } = request;
 
-  const todoIndex = userFound.todos.findIndex((todo) => todo.id === id);
+  todo.title = title;
+  todo.deadline = new Date(deadline);
 
-  if (todoIndex === -1) {
-    return response.status(404).json({ error: "This todo does not exists!" });
-  }
-
-  userFound.todos[todoIndex].title = title;
-  userFound.todos[todoIndex].deadline = new Date(deadline);
-
-  return response.json(userFound.todos[todoIndex]);
+  return response.json(todo);
 });
 
 
-todosRoutes.delete("/:id", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
-  const { id } = request.params;
-  const { userFound } = request;
+todosRoutes.delete('/:id', checksExistsUserAccount, checksTodoExists, (request, response) => {
+  const { user, todo } = request;
 
-  const todoIndex = userFound.todos.findIndex((todo) => todo.id === id);
+  const todoIndex = user.todos.indexOf(todo);
 
   if (todoIndex === -1) {
-    return response.status(404).json({ error: "This todo does not exists!" });
+    return response.status(404).json({ error: 'Todo not found' });
   }
 
-  userFound.todos.splice(id, 1);
+  user.todos.splice(todoIndex, 1);
 
-  return response
-    .status(204)
-    .json({ message: `Delete todo ${id} successfully` });
+  return response.status(204).send();
 });
 
-todosRoutes.patch("/:id/done", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
-  const { id } = request.params;
-  const { userFound } = request;
+todosRoutes.patch("/:id/done", checksTodoExists, (request, response) => {
+  const { todo } = request;
 
-  const todoIndex = userFound.todos.findIndex((todo) => todo.id === id);
+  todo.done = true;
 
-  if (todoIndex === -1) {
-    return response.status(404).json({ error: "This todo does not exists!" });
-  }
-
-  userFound.todos[todoIndex].done = true;
-
-  return response.json(userFound.todos[todoIndex]);
+  return response.json(todo);
 });
 
 module.exports = { todosRoutes };
