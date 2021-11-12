@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
 const { checksExistsUserAccount } = require("../middleware");
-const { users } = require("../usersRepository");
 
 const todosRoutes = Router();
 

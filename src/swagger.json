@@ -46,31 +46,195 @@
       "post": {
         "tags": ["Todos"],
         "summary": "Create todo",
-        "description": "Create a new todo"
+        "description": "Create a new todo",
+        "parameters": [
+          {
+              "name": "username",
+              "in": "header",
+              "description": "username that need to be list",
+              "required": true,
+              "schema": {
+                  "type": "string"
+              }
+          }
+      ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "deadline": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "title": "A new Title",
+                  "deadline": "Fri Nov 12 2021 18:00:55 GMT-0300 (Brasilia Standard Time)"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "We can't find this username"
+          }
+        }
       },
       "get": {
         "tags": ["Todos"],
-        "summary": "Create todo",
-        "description": "Create a new todo"
+        "summary": "Show todos",
+        "description": "List all todos from give an username",
+        "parameters": [
+          {
+              "name": "username",
+              "in": "header",
+              "description": "username that need to be list",
+              "required": true,
+              "schema": {
+                  "type": "string"
+              }
+          }
+      ],
+      "responses": {
+        "200": {
+            "description": "Success"
+        },
+        "400": {
+            "description": "Please check the username again"
+        }
+    }
       }
     },
     "/todos/{id}": {
       "put": {
         "tags": ["Todos"],
         "summary": "Update todo",
-        "description": "Update an existent todo"
+        "description": "Update an existent todo",
+        "parameters": [
+          {
+              "name": "username",
+              "in": "header",
+              "description": "username that need to be list",
+              "required": true,
+              "schema": {
+                  "type": "string"
+              }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be list",
+            "required": true,
+            "schema": {
+                "type": "string"
+            }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "deadline": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "title": "A title updated",
+                "deadline": "Fri Nov 12 2021 18:00:55 GMT-0300 (Brasilia Standard Time)"
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "This todo does not exists!"
+        }
+      }
       },
       "delete": {
         "tags": ["Todos"],
         "summary": "Delete todo",
-        "description": "Delete an existent todo"
+        "description": "Delete an existent todo",
+        "parameters": [
+          {
+              "name": "username",
+              "in": "header",
+              "description": "username that need to be list",
+              "required": true,
+              "schema": {
+                  "type": "string"
+              }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be list",
+            "required": true,
+            "schema": {
+                "type": "string"
+            }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "This todo does not exists!"
+        }
+      }
       }
     },
     "/todos/{id}/done": {
       "patch": {
         "tags": ["Todos"],
-        "summary": "Update todo",
-        "description": "Update an existent todo"
+        "summary": "Done a todo",
+        "description": "Update an existent todo to done",
+        "parameters": [
+          {
+              "name": "username",
+              "in": "header",
+              "description": "username that need to be list",
+              "required": true,
+              "schema": {
+                  "type": "string"
+              }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be list",
+            "required": true,
+            "schema": {
+                "type": "string"
+            }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "This todo does not exists!"
+        }
+      }
       }
     }
   }

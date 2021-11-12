@@ -1,16 +1,17 @@
  <img src="https://img.shields.io/github/license/Ricnaga/nodejs-todo?label=License&style=for-the-badge"/>
 
+<img src="cover.jpg" alt="Capa"/>
+
 # <div align="center"> Desafio NodeJS 1 - todo </div>
 
 #### <div align="right">- Projeto Finalizado <div>
 
 ### <div align="center"> Desafio de curso criado pela equipe Rocketseat abordando conceitos sobre: </div>
 
-#### 1. Nodejs
-#### 2. Javascript
-#### 3. CRUD com ExpressJS 
-#### 4. Tipos de dados de requisições
-#### 5. Tipos de dados de retornos
+#### 1. CRUD com ExpressJS 
+#### 2. Tipos de dados de requisições
+#### 3. Tipos de dados de retornos
+#### 4. Swagger
 
 
 ## <div align="center"> Sumário </div>
@@ -39,36 +40,13 @@ $ code .
 $ yarn dev (caso não utilize o yarn: npm run dev)
 
 # A aplicação iniciará na porta 3333 
-# utilize o insomnia para executar as rotas, no insomnia as rotas são:
-
-#POST:
--http://localhost:3333/users
-no body:{"name":"nome", "username":"usuario"}
-
--http://localhost:3333/todos
-no body:{"title":"titulo inserido", "deadline": "dd-mm-aaaa"}
-
-#GET
--http://localhost:3333/todos
-
-#PUT
--http://localhost:3333/todos/{id}
-no body:{"title":"titulo inserido", "deadline": "dd-mm-aaaa"}
-no lugar de {id} parâmetro da url:{"id":"id-do-usuario"}
-
-#DELETE
--http://localhost:3333/todos/{id}
-no lugar de {id} parâmetro da url:{"id":"id-do-usuario"}
-
-#PATCH
--http://localhost:3333/todos/{id}/done
-no lugar de {id} parâmetro da url:{"id":"id-do-usuario"}
-
+# Acesse no navegador o endereço http://localhost:3333/swagger
 ```
 
 ##  <div align="center">Tecnologias utilizadas</div>
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/starter/installing.html)
+- [Swagger](https://swagger.io/)
 
 
 ## <div align="center">Autor</div>
