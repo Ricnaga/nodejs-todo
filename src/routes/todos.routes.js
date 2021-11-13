@@ -1,33 +1,30 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { checksExistsUserAccount, checksTodoExists } = require("../middleware");
+const { checksExistsUserAccount, checksTodoExists, checksCreateTodosUserAvailability } = require("../middleware");
 
 const todosRoutes = Router();
 
-todosRoutes.post("/", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+todosRoutes.post("/", checksExistsUserAccount, checksCreateTodosUserAvailability, (request, response) => {
   const { title, deadline } = request.body;
+  const { user } = request;
 
-  const { userFound } = request;
-
-  const createTodo = {
+  const newTodo = {
     id: uuidv4(),
     title,
-    done: false,
     deadline: new Date(deadline),
-    created_at: new Date(),
+    done: false,
+    created_at: new Date()
   };
 
-  userFound.todos.push(createTodo);
+  user.todos.push(newTodo);
 
-  return response.status(201).json(createTodo);
+  return response.status(201).json(newTodo);
 });
 
 todosRoutes.get("/", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
-  const { userFound } = request;
+  const { user } = request;
 
-  return response.json(userFound.todos);
+  return response.json(user.todos);
 });
 
 

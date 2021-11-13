@@ -1,22 +1,17 @@
+const { validate } = require("uuid");
 const { users } = require("../usersRepository");
 
 function checksExistsUserAccount(request, response, next) {
   // Complete aqui
-  const { username } = request.headers;
+  const { username } = request.headers
 
-  const hasUserAccount = users.find((user) => user.username === username);
+  const hasUsername = users.find(user => user.username === username)
 
-  if (hasUserAccount === undefined) {
-    return response.status(500).json({ error: "We can't find this username" });
+  if (hasUsername) {
+    request.user = hasUsername
+    return next()
   }
-
-  if (hasUserAccount.length) {
-    return response.status(400).json({ error: "This user does not exists!" });
-  }
-
-  request.userFound = hasUserAccount;
-
-  return next();
+  return response.status(404).json({ error: "This username does not exists!" })
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
@@ -59,6 +54,7 @@ function checksTodoExists(request, response, next) {
 function findUserById(request, response, next) {
   // Complete aqui
   const { id } = request.params;
+
   const hasUser = users.find((user) => user.id === id);
 
   if (!hasUser) {

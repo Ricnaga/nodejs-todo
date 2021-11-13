@@ -1,28 +1,30 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { findUserById } = require("../../../2-todo-middleware/src");
+const { findUserById } = require("../middleware");
 const { users } = require("../usersRepository");
 
 const usersRoutes = Router();
 
 usersRoutes.post("/", (request, response) => {
-  // Complete aqui
   const { name, username } = request.body;
-  const foundUsername = users.some((user) => user.username === username);
 
-  if (foundUsername) {
-    return response.status(400).json({ error: "Username already exists" });
+  const usernameAlreadyExists = users.some((user) => user.username === username);
+
+  if (usernameAlreadyExists) {
+    return response.status(400).json({ error: 'Username already exists' });
   }
 
-  const createUserTodo = {
+  const user = {
     id: uuidv4(),
     name,
     username,
-    todos: [],
+    pro: false,
+    todos: []
   };
-  users.push(createUserTodo);
 
-  return response.status(201).json(createUserTodo);
+  users.push(user);
+
+  return response.status(201).json(user);
 });
 
 usersRoutes.get('/:id', findUserById, (request, response) => {
@@ -42,4 +44,5 @@ usersRoutes.patch('/:id/pro', findUserById, (request, response) => {
 
   return response.json(user);
 });
+
 module.exports = { usersRoutes };

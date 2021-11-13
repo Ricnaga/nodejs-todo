@@ -2,7 +2,7 @@
 
 <img src="cover.jpg" alt="Capa"/>
 
-# <div align="center"> Desafio NodeJS 1 - todo </div>
+# <div align="center"> Desafio NodeJS 1 - todo | middleware </div>
 
 #### <div align="right">- Projeto Finalizado <div>
 
@@ -40,7 +40,8 @@ $ code .
 $ yarn dev (caso não utilize o yarn: npm run dev)
 
 # A aplicação iniciará na porta 3333 
-# Acesse no navegador o endereço http://localhost:3333/swagger
+# Acesse no navegador o endereço 
+# http://localhost:3333/swagger
 ```
 
 ##  <div align="center">Tecnologias utilizadas</div>

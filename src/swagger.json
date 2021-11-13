@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Nodejs - Todos | Documentation",
+    "title": "Nodejs - Todos - more middlewares | Documentation",
     "description": "SOLID challenge API Documentation",
     "version": "1.0.0"
   },
@@ -26,7 +26,7 @@
                 },
                 "example": {
                   "name": "contoso name",
-                  "username": "c.name"
+                  "username": "c_name"
                 }
               }
             }
@@ -42,6 +42,58 @@
         }
       }
     },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show an user",
+        "description": "List a specific user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Please check the id again"
+          }
+        }
+      }
+    },
+    "/users/{id}/pro": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user's plan",
+        "description": "Activate user's plan to pro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Pro plan is already activated."
+          }
+        }
+      }
+    },
     "/todos": {
       "post": {
         "tags": ["Todos"],
@@ -49,15 +101,15 @@
         "description": "Create a new todo",
         "parameters": [
           {
-              "name": "username",
-              "in": "header",
-              "description": "username that need to be list",
-              "required": true,
-              "schema": {
-                  "type": "string"
-              }
+            "name": "username",
+            "in": "header",
+            "description": "username that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-      ],
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -83,8 +135,11 @@
           "201": {
             "description": "Created"
           },
-          "500": {
-            "description": "We can't find this username"
+          "403": {
+            "description": "You already have ten todos"
+          },
+          "404": {
+            "description": "This username does not exists!"
           }
         }
       },
@@ -94,23 +149,23 @@
         "description": "List all todos from give an username",
         "parameters": [
           {
-              "name": "username",
-              "in": "header",
-              "description": "username that need to be list",
-              "required": true,
-              "schema": {
-                  "type": "string"
-              }
+            "name": "username",
+            "in": "header",
+            "description": "username that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-      ],
-      "responses": {
-        "200": {
+        ],
+        "responses": {
+          "200": {
             "description": "Success"
-        },
-        "400": {
+          },
+          "400": {
             "description": "Please check the username again"
+          }
         }
-    }
       }
     },
     "/todos/{id}": {
@@ -120,13 +175,13 @@
         "description": "Update an existent todo",
         "parameters": [
           {
-              "name": "username",
-              "in": "header",
-              "description": "username that need to be list",
-              "required": true,
-              "schema": {
-                  "type": "string"
-              }
+            "name": "username",
+            "in": "header",
+            "description": "username that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "id",
@@ -134,39 +189,42 @@
             "description": "id that need to be list",
             "required": true,
             "schema": {
-                "type": "string"
+              "type": "string"
             }
-        }
-      ],
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "deadline": {
+                    "type": "string"
+                  }
                 },
-                "deadline": {
-                  "type": "string"
+                "example": {
+                  "title": "A title updated",
+                  "deadline": "Fri Nov 12 2021 18:00:55 GMT-0300 (Brasilia Standard Time)"
                 }
-              },
-              "example": {
-                "title": "A title updated",
-                "deadline": "Fri Nov 12 2021 18:00:55 GMT-0300 (Brasilia Standard Time)"
               }
             }
           }
-        }
-      },
-      "responses": {
-        "200": {
-          "description": "Success"
         },
-        "404": {
-          "description": "This todo does not exists!"
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "The Id is not a uuid"
+          },
+          "404": {
+            "description": "This user does not exists or The id is not a uuid"
+          }
         }
-      }
       },
       "delete": {
         "tags": ["Todos"],
@@ -174,13 +232,13 @@
         "description": "Delete an existent todo",
         "parameters": [
           {
-              "name": "username",
-              "in": "header",
-              "description": "username that need to be list",
-              "required": true,
-              "schema": {
-                  "type": "string"
-              }
+            "name": "username",
+            "in": "header",
+            "description": "username that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "id",
@@ -188,18 +246,18 @@
             "description": "id that need to be list",
             "required": true,
             "schema": {
-                "type": "string"
+              "type": "string"
             }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "This todo does not exists!"
+          }
         }
-      ],
-      "responses": {
-        "204": {
-          "description": "Success"
-        },
-        "404": {
-          "description": "This todo does not exists!"
-        }
-      }
       }
     },
     "/todos/{id}/done": {
@@ -209,13 +267,13 @@
         "description": "Update an existent todo to done",
         "parameters": [
           {
-              "name": "username",
-              "in": "header",
-              "description": "username that need to be list",
-              "required": true,
-              "schema": {
-                  "type": "string"
-              }
+            "name": "username",
+            "in": "header",
+            "description": "username that need to be list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "id",
@@ -223,18 +281,18 @@
             "description": "id that need to be list",
             "required": true,
             "schema": {
-                "type": "string"
+              "type": "string"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "This todo does not exists!"
+          }
         }
-      ],
-      "responses": {
-        "200": {
-          "description": "Success"
-        },
-        "404": {
-          "description": "This todo does not exists!"
-        }
-      }
       }
     }
   }
