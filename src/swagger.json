@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Nodejs - Todos | Documentation",
-    "description": "SOLID challenge API Documentation",
+    "description": "Todos challenge API Documentation",
     "version": "1.0.0"
   },
   "paths": {
