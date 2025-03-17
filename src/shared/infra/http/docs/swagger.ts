@@ -1,4 +1,4 @@
-import { Express } from "express";
+import { Application } from "express";
 import swaggerJsDoc from "swagger-jsdoc";
 import { serve, setup } from "swagger-ui-express";
 
@@ -30,6 +30,6 @@ const swaggerOptions = swaggerJsDoc({
   ],
 });
 
-export const initDocsServer = (app: Express) => {
+export const initDocsServer = (app: Application) => {
   app.use("/swagger", serve, setup(swaggerOptions));
 };
