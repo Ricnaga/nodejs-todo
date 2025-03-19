@@ -1,6 +1,6 @@
 import CreateUserUseCase from "@modules/users/use-cases/create-user.use-case";
 import container from "@shared/container";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { signUpBodySchema } from "./sign-up.schema";
 
 /**
@@ -44,15 +44,22 @@ import { signUpBodySchema } from "./sign-up.schema";
 
 export default class SignUpController {
   constructor() {}
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async create(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     const body = signUpBodySchema.parse(request.body);
 
-    const createUserUseCase = await container.getAsync<CreateUserUseCase>(
-      CreateUserUseCase
-    );
+    try {
+      const createUserUseCase = await container.getAsync<CreateUserUseCase>(
+        CreateUserUseCase
+      );
 
-    createUserUseCase.execute(body);
-
-    return response.status(201).send();
+      await createUserUseCase.execute(body);
+      response.status(201).send();
+    } catch (error) {
+      next(error);
+    }
   }
 }

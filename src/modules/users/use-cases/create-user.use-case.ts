@@ -1,3 +1,4 @@
+import AppError from "@shared/errors/app.error";
 import { injectable } from "inversify";
 
 interface IRequest {
@@ -10,7 +11,9 @@ interface IRequest {
 class CreateUserUseCase {
   constructor() {}
 
-  public async execute(data: IRequest): Promise<void> {}
+  public async execute(data: IRequest): Promise<void> {
+    throw new AppError("Username/email ja foram cadastrados");
+  }
 }
 
 export default CreateUserUseCase;
