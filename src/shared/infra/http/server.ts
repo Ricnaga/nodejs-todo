@@ -1,5 +1,5 @@
 import { type Express } from "express";
-import { PORT } from "@config/index";
+import { PORT } from "@config/constants";
 import { app } from "./app";
 
 const initServer = (app: Express) => {
