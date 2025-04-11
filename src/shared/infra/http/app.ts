@@ -1,10 +1,11 @@
 import "reflect-metadata";
+
+import "express-async-errors";
 import AppError from "@shared/errors/app.error";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import { initDocsServer } from "./docs/swagger";
 import routes from "./routes";
-import "express-async-errors";
 
 const handleErrors = (
   err: Error,

@@ -8,7 +8,7 @@
     "lib": ["ES2023"],
 
     /* Modules */
-    "module": "Node16" /* Specify what module code is generated. */,
+    "module": "CommonJS" /* Specify what module code is generated. */,
 
     /* Emit */
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,
