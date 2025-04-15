@@ -1,7 +1,7 @@
 import {
   CreateUserDTO,
   UpdateUserDTO,
-} from "@modules/users/dtos/users/user.dto";
+} from "@modules/users/dtos/user.dto";
 import User from "@modules/users/entities/user.entity";
 import { injectable } from "inversify";
 import IUsersRepository from "../users.interface";

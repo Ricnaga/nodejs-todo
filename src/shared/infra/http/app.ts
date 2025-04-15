@@ -1,27 +1,11 @@
 import "reflect-metadata";
-
 import "express-async-errors";
-import AppError from "@shared/errors/app.error";
+
+import { handleErrors } from "@shared/errors/utils.error";
 import cors from "cors";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import { initDocsServer } from "./docs/swagger";
 import routes from "./routes";
-
-const handleErrors = (
-  err: Error,
-  _: Request,
-  response: Response,
-  next: NextFunction
-) => {
-  if (err instanceof AppError) {
-    return response.status(err.statusCode).json({ message: err.message });
-  }
-
-  return response.status(500).json({
-    status: "Erro",
-    message: "Erro interno do servidor - ".concat(err.message),
-  });
-};
 
 const app = express();
 
