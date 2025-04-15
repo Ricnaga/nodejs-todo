@@ -1,4 +1,4 @@
-import CreateTodoDTO from "@modules/users/dtos/users/create-user.dto";
+import CreateTodoDTO from "@modules/users/dtos/users/user.dto";
 import ListTodoDTO from "../dtos/list-user.dto";
 import EditTodoDTO from "../dtos/edit-user.dto";
 import DeleteTodoDTO from "../dtos/delete-user.dto";
