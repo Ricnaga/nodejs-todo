@@ -32,7 +32,16 @@ import container from "@shared/container";
  *              
  *    responses:
  *       "201":
- *         description: 
+ *         description:
+ *         content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                token:
+ *                  type: string
+ *                  description: The user token.
+ *
  *       "400":
  *         description: Username e/ou senha estão incorretos
  *       "500":
@@ -53,9 +62,9 @@ export default class LoginController {
         CreateTokenUseCase
       );
 
-      await createTokenUseCase.execute(body);
+      const { token } = await createTokenUseCase.execute(body);
 
-      response.status(201).send();
+      response.status(201).json({ token });
     } catch (error) {
       next(error);
     }

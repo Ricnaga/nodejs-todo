@@ -1,5 +1,9 @@
 import IUsersRepository from "@modules/users/repositories/users.interface";
-import { usersRepositoryId } from "@shared/container/container.types";
+import {
+  hashProviderId,
+  usersRepositoryId,
+} from "@shared/container/container.types";
+import IHashProvider from "@shared/container/providers/HashProvider/models/hash-provider.interface";
 import AppError from "@shared/errors/app.error";
 import { inject, injectable } from "inversify";
 
@@ -13,7 +17,9 @@ interface IRequest {
 export default class CreateUserUseCase {
   constructor(
     @inject(usersRepositoryId)
-    private readonly usersRepository: IUsersRepository
+    private readonly usersRepository: IUsersRepository,
+    @inject(hashProviderId)
+    private readonly hashProvider: IHashProvider
   ) {}
 
   public async execute(data: IRequest): Promise<void> {
@@ -26,6 +32,10 @@ export default class CreateUserUseCase {
       throw new AppError("Username/email ja foram cadastrados");
     }
 
-    await this.usersRepository.create({ user: data });
+    const hashPassword = await this.hashProvider.createHash(data.password);
+
+    await this.usersRepository.create({
+      user: { ...data, password: hashPassword },
+    });
   }
 }
