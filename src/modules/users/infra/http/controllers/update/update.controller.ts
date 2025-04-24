@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { updateBodySchema, updateParamsSchema } from "./update.validator";
+import { updateBodySchema, updateParamsSchema } from "./update.schema";
 import container from "@shared/container";
 import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.use-case";
 
@@ -52,9 +52,9 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  * 
   *    responses:
   *       "204":
-  *         description: 
+  *         description: Usuário atualizado com sucesso
   *       "401":
-  *         description: 
+  *         description: Você não possui um token válido
   *       "500":
   *         description: Erro interno do servidor
  * 
