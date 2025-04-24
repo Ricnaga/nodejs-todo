@@ -46,17 +46,43 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  *                type: string
  
  *            example:
- *              username: user_name
- *              password: Abc123
- *              email: user_name@email.com
+ *              username: user.name
+ *              password: _Abc123
+ *              email: user.name@email.com
  * 
-  *    responses:
-  *       "204":
-  *         description: Usuário atualizado com sucesso
-  *       "401":
-  *         description: Você não possui um token válido
-  *       "500":
-  *         description: Erro interno do servidor
+ *    responses:
+ *        "200":
+ *          description: Usuário atual
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  user:
+ *                    type: object
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        example: "user_id"
+ *                      username:
+ *                        type: string
+ *                        example: "user.name"
+ *                      email:
+ *                        type: string
+ *                        example: "user.name@email.com" 
+ *                      password:
+ *                        type: string
+ *                        example: "user_password"
+ *              example:
+ *                user:
+ *                  id: user_id
+ *                  username: user.name
+ *                  email: user.name@email.com
+ *                  password: user_password
+ *        "401":
+ *          description: Você não possui um token válido
+ *        "500":
+ *          description: Erro interno do servidor
  * 
  */
 
@@ -76,9 +102,9 @@ export default class UpdateController {
         UpdateUserUseCase
       );
 
-      await updateUserUseCase.execute(data);
+      const updatedUser = await updateUserUseCase.execute({ user: data });
 
-      return response.status(204).send();
+      return response.status(200).json({ user: updatedUser });
     } catch (error) {
       next(error);
     }

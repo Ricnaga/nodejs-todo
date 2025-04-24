@@ -6,5 +6,5 @@ export default interface IUsersRepository {
   findByUsername(username: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   create(data: CreateUserDTO): Promise<Array<User>>;
-  update(data: UpdateUserDTO): Promise<Array<User>>
+  update(data: UpdateUserDTO): Promise<User>
 }

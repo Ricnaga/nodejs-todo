@@ -64,7 +64,7 @@ export default class MeController {
 
       const user = await listUserUseCase.execute({ id: request.user.id });
       
-      response.status(200).json({ user });
+      return response.status(200).json({ user });
 
     } catch (error) {
       next(error);

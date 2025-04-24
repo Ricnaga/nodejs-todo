@@ -28,11 +28,11 @@ export default class InMemoryUsersRepository implements IUsersRepository {
     return this.users;
   }
 
-  public async update(data: UpdateUserDTO): Promise<Array<User>> {
+  public async update(data: UpdateUserDTO): Promise<User> {
     const userIndex = this.users.findIndex((user) => user.id === data.user.id);
 
     this.users[userIndex] = data.user;
 
-    return this.users;
+    return this.users[userIndex]
   }
 }
