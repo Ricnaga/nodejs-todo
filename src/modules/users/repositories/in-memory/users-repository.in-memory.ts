@@ -1,7 +1,4 @@
-import {
-  CreateUserDTO,
-  UpdateUserDTO,
-} from "@modules/users/dtos/user.dto";
+import { CreateUserDTO, UpdateUserDTO } from "@modules/users/dtos/user.dto";
 import User from "@modules/users/entities/user.entity";
 import { injectable } from "inversify";
 import IUsersRepository from "../users.interface";
@@ -10,6 +7,10 @@ import { v4 as uuid } from "uuid";
 @injectable()
 export default class InMemoryUsersRepository implements IUsersRepository {
   private users: Array<User> = [];
+
+  public async findById(id: string): Promise<User | undefined> {
+    return this.users.find((user) => user.id === id);
+  }
 
   public async findByUsername(username: string): Promise<User | undefined> {
     return this.users.find((user) => user.username === username);

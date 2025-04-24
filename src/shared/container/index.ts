@@ -12,6 +12,7 @@ import BCryptHashProvider from "./providers/HashProvider/implementations/bcrypt-
 import CreateTokenUseCase from "@modules/users/use-cases/create-token/create-token.use-case";
 import InMemoryTokenRepository from "@modules/users/repositories/in-memory/token-repository.in-memory";
 import ITokenRepository from "@modules/users/repositories/token.interface";
+import ListUserUseCase from "@modules/users/use-cases/list-user/list-user.use-case";
 
 const container = new Container();
 
@@ -39,5 +40,7 @@ container
   .bind<CreateTokenUseCase>(CreateTokenUseCase)
   .toSelf()
   .inSingletonScope();
+
+container.bind<ListUserUseCase>(ListUserUseCase).toSelf().inSingletonScope();
 
 export default container;

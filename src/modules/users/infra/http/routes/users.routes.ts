@@ -3,6 +3,7 @@ import { Router } from "express";
 import LoginController from "../controllers/login/login.controller";
 import SignUpController from "../controllers/sign-up/sign-up.controller";
 import UpdateController from "../controllers/update/update.controller";
+import MeController from "../controllers/me/me.controller";
 
 const usersRouter = Router();
 
@@ -15,5 +16,8 @@ usersRouter.post("/login", loginController.create);
 
 const updateController = new UpdateController();
 usersRouter.put("/:id", validateToken, updateController.update);
+
+const meController = new MeController();
+usersRouter.get("/me", validateToken, meController.list);
 
 export default usersRouter;

@@ -42,7 +42,7 @@ import container from "@shared/container";
  *                  type: string
  *                  description: The user token.
  * 
-  *            example:
+ *            example:
  *              token: "token"
  *
  *       "400":
