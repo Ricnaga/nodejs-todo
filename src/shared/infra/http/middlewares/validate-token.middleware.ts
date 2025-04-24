@@ -5,7 +5,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import z from "zod";
 
 const validateTokenSchema = z.object({
-  authorization: z.string(),
+  authorization: z.string().nullish(),
 });
 
 export default function validateToken(
@@ -15,7 +15,7 @@ export default function validateToken(
 ): void {
   const { authorization } = validateTokenSchema.parse(request.headers);
 
-  if (!authorization) throw new AppError("Você não possui token", 401);
+  if (!authorization) throw new AppError("Você não possui um token válido", 401);
 
   const [, token] = authorization.split(" ");
 

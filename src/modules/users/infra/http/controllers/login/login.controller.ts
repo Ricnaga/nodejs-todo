@@ -41,6 +41,9 @@ import container from "@shared/container";
  *                token:
  *                  type: string
  *                  description: The user token.
+ * 
+  *            example:
+ *              token: "token"
  *
  *       "400":
  *         description: Username e/ou senha estão incorretos
