@@ -2,24 +2,49 @@
  * @swagger
  * components:
  *  securitySchemes:
- *    Bearer token:
+ *    Bearer token: 
  *      type: http
  *      scheme: bearer
- *      bearerFormat: JWT
+ *      bearerFormat: JWT 
 
- * /todos:
- *  get:
+ * /todos/{id}:
+ *  put:
  *    tags:
  *      - Todos
- *    summary: Listar todos do atual usuário
- *    description: Listar todos do atual usuário
- 
+ *    summary: Atualizar um todo de um usuário
+ *    description: Dado um id, título e descrição, gera um atualização do todo do usuário no banco de dados.
  *    security:
  *      - Bearer token: []
+  
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: id do todo
+ 
+ *    requestBody:
+ *       description: Corpo da requisição
+ *       required: true
+ 
+ *       content:
+ *         application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              description:
+ *                type: string
+ 
+ *            example:
+ *              title: título do todo atualizado
+ *              description: descrição do todo atualizado
 
  *    responses:
  *       "200":
- *         description: todos do usuário atual
+ *         description: todos do usuário atualizado
  *         content:
  *          application/json:
  *            schema:
@@ -53,8 +78,7 @@
  *       "401":
  *         description: Você não possui um token válido
  *       "404":
- *         description: Você não possui informações desse usuário para listagem
+ *         description: Você não possui informações desse usuário para atualização
  *       "500":
  *         description: Erro interno do servidor
- 
  */

@@ -1,10 +1,9 @@
 import DeleteTodoDTO from "@modules/todos/dtos/delete-todo.dto";
-import EditTodoDTO from "@modules/todos/dtos/edit-todo.dto";
-import CreateTodoDTO from "@modules/todos/dtos/todo.dto";
 import Todos from "@modules/todos/entities/todos.entity";
 import { injectable } from "inversify";
 import { v4 } from "uuid";
 import ITodosRepository from "../todos.interface";
+import { CreateTodoDTO, UpdateTodoDTO } from "@modules/todos/dtos/todo.dto";
 
 @injectable()
 export default class InMemoryTodosRepository implements ITodosRepository {
@@ -18,10 +17,13 @@ export default class InMemoryTodosRepository implements ITodosRepository {
     return this.todos.filter((todo) => todo.userId === userId);
   }
 
-  edit(data: EditTodoDTO): void {
-    throw new Error("Method not implemented.");
+  public async update(data: UpdateTodoDTO): Promise<void> {
+    const todoIndex = this.todos.findIndex((todo) => todo.id === data.todo.id);
+
+    this.todos[todoIndex] = data.todo;
   }
-  delete(data: DeleteTodoDTO): void {
+
+  public async delete(data: DeleteTodoDTO): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

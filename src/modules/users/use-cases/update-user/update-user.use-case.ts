@@ -14,6 +14,7 @@ class UpdateUserUseCase {
     @inject(usersRepositoryId)
     private readonly usersRepository: IUsersRepository
   ) {}
+
   public async execute(data: IRequest): Promise<User> {
     const userFound = await this.usersRepository.findById(data.user.id);
 
@@ -23,7 +24,7 @@ class UpdateUserUseCase {
 
     const updatedUser = await this.usersRepository.update(data);
 
-    return updatedUser
+    return updatedUser;
   }
 }
 
