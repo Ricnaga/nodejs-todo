@@ -3,55 +3,6 @@ import CreateTokenUseCase from "@modules/users/use-cases/create-token/create-tok
 import container from "@shared/container";
 import { NextFunction, Request, Response } from "express";
 
-/**
- * @swagger
- * /users/login:
- *  post:
- *    tags:
- *      - Users
- *    summary: Criar um token
- *    description: Dado um usuário e senha, cria um token.
- * 
- *    requestBody:
- *       description: Corpo da requisição
- *       required: true
- 
- *       content:
- *         application/json:
- *          schema:
- *            type: object
- *            properties:
- *              username:
- *                type: string
- *              password:
- *                type: string
-
- *            example:
- *              username: user_name
- *              password: Abc123
-              
- *    responses:
- *       "201":
- *         description:
- *         content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                token:
- *                  type: string
- *                  description: The user token.
-
- *            example:
- *              token: "token"
-
- *       "400":
- *         description: Username e/ou senha estão incorretos
- *       "500":
- *         description: Erro interno do servidor
- *
- */
-
 const loginBodySchema = userEntitySchema.pick({
   username: true,
   password: true,

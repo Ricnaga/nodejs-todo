@@ -26,7 +26,7 @@ const swaggerOptions = swaggerJsDoc({
   apis: [
     process
       .cwd()
-      .concat("/src/modules/**/infra/http/controllers/**/*.controller.ts"),
+      .concat("/src/modules/**/infra/http/controllers/**/*controller.doc.ts"),
   ],
 });
 

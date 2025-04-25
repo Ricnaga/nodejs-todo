@@ -1,46 +1,7 @@
 import { userEntitySchema } from "@modules/users/entities/user.schema";
 import CreateUserUseCase from "@modules/users/use-cases/create-user/create-user.use-case";
-import container from "@shared/container";
+import container from "@shared/container/di/base.di";
 import { NextFunction, Request, Response } from "express";
-
-/**
- * @swagger
- * /users/sign-up:
- *  post:
- *    tags:
- *      - Users
- *    summary: Criar um cadastro de um usuário
- *    description: Dado um usuário, email e senha, gera um cadastro no banco de dados.
- 
- *    requestBody:
- *       description: Corpo da requisição
- *       required: true
- 
- *       content:
- *         application/json:
- *          schema:
- *            type: object
- *            properties:
- *              username:
- *                type: string
- *              email:
- *                type: string
- *              password:
- *                type: string
- * 
- *            example:
- *              username: user_name
- *              email: username@email.com
- *              password: Abc123
- 
- *    responses:
- *       "201":
- *         description: Cadastro criado com sucesso
- *       "400":
- *         description: Username/email ja foram cadastrados
- *       "500":
- *         description: Erro interno do servidor
- */
 
 const signUpBodySchema = userEntitySchema.pick({
   email: true,
