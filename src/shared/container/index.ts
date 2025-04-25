@@ -9,11 +9,15 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
 import { Container } from "inversify";
 import {
   hashProviderId,
+  todosRepositoryId,
   tokenRepositoryId,
   usersRepositoryId,
 } from "./container.types";
 import BCryptHashProvider from "./providers/HashProvider/implementations/bcrypt-hash.provider";
 import IHashProvider from "./providers/HashProvider/models/hash-provider.interface";
+import ITodosRepository from "@modules/todos/repositories/todos.interface";
+import InMemoryTodosRepository from "@modules/todos/repositories/in-memory/todos-repository.in-memory";
+import CreateTodoUseCase from "@modules/todos/use-cases/create-todo/create-todo.use-case";
 
 const container = new Container();
 
@@ -25,6 +29,11 @@ container
 container
   .bind<ITokenRepository>(tokenRepositoryId)
   .to(InMemoryTokenRepository)
+  .inSingletonScope();
+
+container
+  .bind<ITodosRepository>(todosRepositoryId)
+  .to(InMemoryTodosRepository)
   .inSingletonScope();
 
 container
@@ -46,6 +55,11 @@ container.bind<ListUserUseCase>(ListUserUseCase).toSelf().inSingletonScope();
 
 container
   .bind<UpdateUserUseCase>(UpdateUserUseCase)
+  .toSelf()
+  .inSingletonScope();
+
+container
+  .bind<CreateTodoUseCase>(CreateTodoUseCase)
   .toSelf()
   .inSingletonScope();
 

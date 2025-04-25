@@ -1,9 +1,13 @@
 import { Router } from "express";
+import CreateTodoController from "../controllers/create/create-todos.controller";
+import validateToken from "@shared/infra/http/middlewares/validate-token.middleware";
 
 const todosRoutes = Router();
 
+const createTodoController = new CreateTodoController();
+todosRoutes.post("/", validateToken, createTodoController.create);
+
 todosRoutes.get("/");
-todosRoutes.post("/");
 todosRoutes.patch("/:id");
 todosRoutes.delete("/:id");
 
