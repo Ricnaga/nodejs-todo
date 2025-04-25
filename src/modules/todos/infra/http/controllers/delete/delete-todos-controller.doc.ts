@@ -1,0 +1,37 @@
+/**
+ * @swagger
+ * components:
+ *  securitySchemes:
+ *    Bearer token:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+
+ * /todos/{id}:
+ *  delete:
+ *    tags:
+ *      - Todos
+ *    summary: Remover um todo do atual usuário
+ *    description: Dado um id de todo, remove um todo do atual usuário
+ * 
+ *    security:
+ *      - Bearer token: []
+
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: id do todo
+
+ *    responses:
+ *       "204":
+ *         description:
+ *       "401":
+ *         description: Você não possui um token válido
+ *       "404":
+ *         description: Não é possível remover um todo inexistente
+ *       "500":
+ *         description: Erro interno do servidor
+ */

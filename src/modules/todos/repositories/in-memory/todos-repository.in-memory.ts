@@ -1,4 +1,3 @@
-import DeleteTodoDTO from "@modules/todos/dtos/delete-todo.dto";
 import Todos from "@modules/todos/entities/todos.entity";
 import { injectable } from "inversify";
 import { v4 } from "uuid";
@@ -23,7 +22,12 @@ export default class InMemoryTodosRepository implements ITodosRepository {
     this.todos[todoIndex] = data.todo;
   }
 
-  public async delete(data: DeleteTodoDTO): Promise<void> {
-    throw new Error("Method not implemented.");
+  public async findById(todoId: string): Promise<Todos | undefined> {
+    return this.todos.find((todo) => todo.id !== todoId);
+  }
+
+  public async remove(todoId: string): Promise<void> {
+    const todoIndex = this.todos.findIndex(todo => todo.id === todoId)
+    this.todos.splice(todoIndex, 1);
   }
 }

@@ -1,17 +1,30 @@
-import { Request, Response } from "express";
+import { todoEntitySchema } from "@modules/todos/entities/todos.schema";
+import DeleteTodosUseCase from "@modules/todos/use-cases/delete-todo/delete-todo.use-case";
+import container from "@shared/container";
+import { NextFunction, Request, Response } from "express";
 
-/**
- * @swagger
- * /todos/{id}:
- *  delete:
- *    tags:
- *      - Todos
- *    summary: Retrieve a list of JSONPlaceholder users
- *    description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
- */
+const deleteParamsSchema = todoEntitySchema.pick({
+  id: true,
+});
 
 export default class DeleteTodoController {
-  public async delete(request: Request, response: Response): Promise<Response> {
-    return response.status(204).json();
+  public async delete(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const { id } = deleteParamsSchema.parse(request.params);
+
+      const deleteTodosUseCase = await container.getAsync<DeleteTodosUseCase>(
+        DeleteTodosUseCase
+      );
+
+      await deleteTodosUseCase.execute({ id });
+
+      return response.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
 }

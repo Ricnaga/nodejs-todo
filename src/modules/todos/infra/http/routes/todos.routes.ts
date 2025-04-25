@@ -3,18 +3,20 @@ import CreateTodoController from "../controllers/create/create-todos.controller"
 import validateToken from "@shared/infra/http/middlewares/validate-token.middleware";
 import ListTodoController from "../controllers/list/list-todos.controller";
 import UpdateTodoController from "../controllers/update/update-todos.controller";
+import DeleteTodoController from "../controllers/delete/delete-todos.controller";
 
 const todosRoutes = Router();
 
 const createTodoController = new CreateTodoController();
 todosRoutes.post("/", validateToken, createTodoController.create);
 
-const listTodoController = new ListTodoController()
+const listTodoController = new ListTodoController();
 todosRoutes.get("/", validateToken, listTodoController.list);
 
-const updateTodoController = new UpdateTodoController()
+const updateTodoController = new UpdateTodoController();
 todosRoutes.put("/:id", validateToken, updateTodoController.update);
 
-todosRoutes.delete("/:id");
+const deleteTodoController = new DeleteTodoController();
+todosRoutes.delete("/:id", validateToken, deleteTodoController.delete);
 
 export default todosRoutes;
