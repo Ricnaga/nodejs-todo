@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { userEntitySchema } from "@modules/users/entities/user.schema";
 import CreateTokenUseCase from "@modules/users/use-cases/create-token/create-token.use-case";
 import container from "@shared/container";
-import { userEntitySchema } from "@modules/users/entities/user.schema";
+import { NextFunction, Request, Response } from "express";
 
 /**
  * @swagger

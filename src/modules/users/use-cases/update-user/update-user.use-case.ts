@@ -1,6 +1,6 @@
 import User from "@modules/users/entities/user.entity";
 import IUsersRepository from "@modules/users/repositories/users.interface";
-import { usersRepositoryId } from "@shared/container/container.types";
+import { usersRepositoryId } from "@shared/container/di/types";
 import AppError from "@shared/errors/app.error";
 import { inject, injectable } from "inversify";
 

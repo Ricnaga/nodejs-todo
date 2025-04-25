@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import container from "@shared/container";
-import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.use-case";
 import { userEntitySchema } from "@modules/users/entities/user.schema";
+import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.use-case";
+import container from "@shared/container";
+import { NextFunction, Request, Response } from "express";
 
 /**
  * @swagger

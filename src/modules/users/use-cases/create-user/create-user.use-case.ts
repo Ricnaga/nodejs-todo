@@ -2,7 +2,7 @@ import IUsersRepository from "@modules/users/repositories/users.interface";
 import {
   hashProviderId,
   usersRepositoryId,
-} from "@shared/container/container.types";
+} from "@shared/container/di/types";
 import IHashProvider from "@shared/container/providers/HashProvider/models/hash-provider.interface";
 import AppError from "@shared/errors/app.error";
 import { inject, injectable } from "inversify";

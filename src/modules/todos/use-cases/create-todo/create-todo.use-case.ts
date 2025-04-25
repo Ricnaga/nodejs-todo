@@ -1,6 +1,5 @@
-import Todos from "@modules/todos/entities/todos.entity";
 import ITodosRepository from "@modules/todos/repositories/todos.interface";
-import { todosRepositoryId } from "@shared/container/container.types";
+import { todosRepositoryId } from "@shared/container/di/types";
 import AppError from "@shared/errors/app.error";
 import { inject, injectable } from "inversify";
 
