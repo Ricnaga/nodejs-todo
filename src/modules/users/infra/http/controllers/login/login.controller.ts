@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { loginBodySchema } from "./login.schema";
 import CreateTokenUseCase from "@modules/users/use-cases/create-token/create-token.use-case";
 import container from "@shared/container";
+import { userEntitySchema } from "@modules/users/entities/user.schema";
 
 /**
  * @swagger
@@ -25,11 +25,11 @@ import container from "@shared/container";
  *                type: string
  *              password:
  *                type: string
- * 
+
  *            example:
  *              username: user_name
  *              password: Abc123
- *              
+              
  *    responses:
  *       "201":
  *         description:
@@ -41,16 +41,21 @@ import container from "@shared/container";
  *                token:
  *                  type: string
  *                  description: The user token.
- * 
+
  *            example:
  *              token: "token"
- *
+
  *       "400":
  *         description: Username e/ou senha estão incorretos
  *       "500":
  *         description: Erro interno do servidor
  *
  */
+
+const loginBodySchema = userEntitySchema.pick({
+  username: true,
+  password: true,
+});
 
 export default class LoginController {
   public async create(

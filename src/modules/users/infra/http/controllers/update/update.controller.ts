@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { updateBodySchema, updateParamsSchema } from "./update.schema";
 import container from "@shared/container";
 import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.use-case";
+import { userEntitySchema } from "@modules/users/entities/user.schema";
 
 /**
  * @swagger
@@ -11,7 +11,7 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  *      type: http
  *      scheme: bearer
  *      bearerFormat: JWT 
- * 
+
  * /users/{id}:
  *  put:
  *    tags:
@@ -20,7 +20,7 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  *    description: Dado um id, usuário, email e senha, gera um atualização do usuário no banco de dados.
  *    security:
  *      - Bearer token: []
- *
+
  *    parameters:
  *      - in: path
  *        name: id
@@ -49,7 +49,7 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  *              username: user.name
  *              password: _Abc123
  *              email: user.name@email.com
- * 
+
  *    responses:
  *        "200":
  *          description: Usuário atual
@@ -85,6 +85,10 @@ import UpdateUserUseCase from "@modules/users/use-cases/update-user/update-user.
  *          description: Erro interno do servidor
  * 
  */
+
+const updateBodySchema = userEntitySchema.omit({ id: true });
+
+const updateParamsSchema = userEntitySchema.pick({ id: true });
 
 export default class UpdateController {
   public async update(

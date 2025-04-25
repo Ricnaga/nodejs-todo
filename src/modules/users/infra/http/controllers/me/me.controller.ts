@@ -10,15 +10,16 @@ import { NextFunction, Request, Response } from "express";
  *      type: http
  *      scheme: bearer
  *      bearerFormat: JWT
- *
+
  * /users/me:
  *  get:
  *    tags:
  *      - Users
  *    summary: Listar informações do atual usuário
+ *    description: Listar informações do atual usuário
  *    security:
  *      - Bearer token: []
- *
+
  *    responses:
  *       "200":
  *         description: Usuário atual
@@ -36,16 +37,16 @@ import { NextFunction, Request, Response } from "express";
  *                    username:
  *                      type: string
  *                      example: "user_name"
- *
+
  *            example:
  *              user:
  *                id: user_id
  *                username: user_name
- *
+
  *       "401":
  *         description: Você não possui um token válido
  *       "404":
- *         description: Você não possui informações do usuário para listagem
+ *         description: Você não possui informações desse usuário para listagem
  *       "500":
  *         description: Erro interno do servidor
  *

@@ -1,7 +1,7 @@
+import { userEntitySchema } from "@modules/users/entities/user.schema";
 import CreateUserUseCase from "@modules/users/use-cases/create-user/create-user.use-case";
 import container from "@shared/container";
 import { NextFunction, Request, Response } from "express";
-import { signUpBodySchema } from "./sign-up.schema";
 
 /**
  * @swagger
@@ -11,7 +11,7 @@ import { signUpBodySchema } from "./sign-up.schema";
  *      - Users
  *    summary: Criar um cadastro de um usuário
  *    description: Dado um usuário, email e senha, gera um cadastro no banco de dados.
- *    
+ 
  *    requestBody:
  *       description: Corpo da requisição
  *       required: true
@@ -32,7 +32,7 @@ import { signUpBodySchema } from "./sign-up.schema";
  *              username: user_name
  *              email: username@email.com
  *              password: Abc123
- *              
+ 
  *    responses:
  *       "201":
  *         description: Cadastro criado com sucesso
@@ -41,6 +41,12 @@ import { signUpBodySchema } from "./sign-up.schema";
  *       "500":
  *         description: Erro interno do servidor
  */
+
+const signUpBodySchema = userEntitySchema.pick({
+  email: true,
+  username: true,
+  password: true,
+});
 
 export default class SignUpController {
   public async create(

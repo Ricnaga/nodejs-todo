@@ -22,14 +22,14 @@ export default class ListUserUseCase {
   public async execute(data: IRequest): Promise<IResponse> {
     if (!data.id)
       throw new AppError(
-        "Você não possui informações do usuário para listagem", 404
+        "Você não possui informações desse usuário para listagem", 404
       );
 
     const userFound = await this.usersRepository.findById(data.id);
 
     if (!userFound)
       throw new AppError(
-        "Você não possui informações do usuário para listagem", 404
+        "Você não possui informações desse usuário para listagem", 404
       );
 
     return { id: userFound.id, username: userFound.username };
