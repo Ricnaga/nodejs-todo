@@ -1,17 +1,23 @@
-import { Request, Response } from "express";
-
-/**
- * @swagger
- * /todos:
- *  get:
- *    tags:
- *      - Todos
- *    summary: Retrieve a list of JSONPlaceholder users
- *    description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
- */
+import ListTodosUseCase from "@modules/todos/use-cases/list-todo/list-todo.use-case";
+import container from "@shared/container";
+import { NextFunction, Request, Response } from "express";
 
 export default class ListTodoController {
-  public async list(request: Request, response: Response): Promise<Response> {
-    return response.status(204).json();
+  public async list(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const listTodosUseCase = await container.getAsync<ListTodosUseCase>(
+        ListTodosUseCase
+      );
+
+      const todos = await listTodosUseCase.execute({ userId: request.user.id });
+
+      response.status(200).json({ todos });
+    } catch (error) {
+      next(error);
+    }
   }
 }
