@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Nodejs - Todos | Documentation
+  version: '1.0.0'
+
+components:
+  securitySchemes:
+    Bearer token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /users:
+    post:
+      $ref: './users/sign-up.yaml'
+    put:
+      $ref: './users/update.yaml'
+
+  /users/login:
+    post:
+      $ref: './users/login.yaml'
+
+  /users/me:
+    get:
+      $ref: './users/me.yaml'
+
+  /todos:
+    post:
+      $ref: './todos/create-todos.yaml'
+    get:
+      $ref: './todos/list-todos.yaml'
+
+  /todos/{id}:
+    delete:
+      $ref: './todos/delete-todos.yaml'
+    put:
+      $ref: './todos/update-todos.yaml'

@@ -7,7 +7,7 @@ import express from 'express';
 
 import { handleErrors } from '@shared/errors/utils.error';
 
-import { initDocsServer } from './docs/js-docs';
+import { initDocsServer } from './docs/@apidevtools';
 import routes from './routes';
 
 const app = express();

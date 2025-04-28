@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /users/sign-up:
+ * /users:
  *  post:
  *    tags:
  *      - Users
