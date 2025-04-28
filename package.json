@@ -2,15 +2,13 @@
   "name": "nodejs-todo",
   "version": "2.0.0",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch --include ./src --env-file=.env.development ./src/shared/infra/http/server.ts",
-    "lint": "eslint --ext src/**/*.ts --max-warnings=0",
+    "lint": "eslint --ext .ts --max-warnings=0",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty",
     "precommit": "lint-staged",
-    "commit": "git-cz",
-    "prepare": "husky install"
+    "commit": "git-cz"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.1",
@@ -47,6 +45,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.25.1",
     "eslint-config-prettier": "^10.1.2",
+    "eslint-import-resolver-typescript": "^4.3.4",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.6",
     "husky": "^9.1.7",

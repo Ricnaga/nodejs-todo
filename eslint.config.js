@@ -5,7 +5,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default [
   {
-    ignores: ['config/*'],
+    ignores: ['config/*', '!src/config/**'],
     languageOptions: {
       parser: tsEslintParser,
       parserOptions: {

@@ -1,11 +1,14 @@
-import "reflect-metadata";
-import "express-async-errors";
+import 'reflect-metadata';
+import 'express-async-errors';
 
-import { handleErrors } from "@shared/errors/utils.error";
-import cors from "cors";
-import express from "express";
-import { initDocsServer } from "./docs/swagger";
-import routes from "./routes";
+import cors from 'cors';
+
+import express from 'express';
+
+import { handleErrors } from '@shared/errors/utils.error';
+
+import { initDocsServer } from './docs/js-docs';
+import routes from './routes';
 
 const app = express();
 
