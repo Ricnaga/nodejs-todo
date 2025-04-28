@@ -1,0 +1,17 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  release:
+    name: Create Release PR or GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
