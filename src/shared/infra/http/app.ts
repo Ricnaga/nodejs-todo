@@ -1,5 +1,5 @@
-import 'reflect-metadata';
 import 'express-async-errors';
+import 'reflect-metadata';
 
 import cors from 'cors';
 
@@ -7,7 +7,7 @@ import express from 'express';
 
 import { handleErrors } from '@shared/errors/utils.error';
 
-import { initDocsServer } from './docs/@apidevtools';
+import initDocsServer from './docs';
 import routes from './routes';
 
 const app = express();

@@ -3,6 +3,8 @@ import { serve, setup } from 'swagger-ui-express';
 
 import { Application } from 'express';
 
+import { swaggerServerName } from '..';
+
 // https://swagger.io/docs/specification/v3_0/basic-structure/
 
 const swaggerOptions = swaggerJsDoc({
@@ -27,6 +29,6 @@ const swaggerOptions = swaggerJsDoc({
   apis: [process.cwd().concat('/src/shared/infra/http/docs/**/*.doc.ts')],
 });
 
-export const initDocsServer = (app: Application) => {
-  app.use('/swagger', serve, setup(swaggerOptions));
+export const initJsDocsServer = (app: Application) => {
+  app.use('/'.concat(swaggerServerName), serve, setup(swaggerOptions));
 };
