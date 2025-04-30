@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /users:
+ * /users/{id}:
  *  post:
  *    tags:
  *      - Users
