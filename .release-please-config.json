@@ -1,5 +1,6 @@
 {
   "release-type": "node",
+  "branches": ["develop"],
   "package-name": "nodejs-todo",
   "bump-minor-pre-major": true,
   "changelog-types": [
