@@ -29,8 +29,8 @@
  *              password: Abc123
  
  *    responses:
- *       "201":
- *         description: Cadastro criado com sucesso
+ *       "204":
+ *         description: No content
  *       "400":
  *         description: Username/email ja foram cadastrados
  *       "500":

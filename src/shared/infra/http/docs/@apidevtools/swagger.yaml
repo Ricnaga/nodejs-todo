@@ -14,6 +14,8 @@ paths:
   /users:
     post:
       $ref: './users/sign-up.yaml'
+      
+  /users/{id}:
     put:
       $ref: './users/update.yaml'
 
