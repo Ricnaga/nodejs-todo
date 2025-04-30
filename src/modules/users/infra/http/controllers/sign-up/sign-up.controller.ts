@@ -1,29 +1,25 @@
-import { userEntitySchema } from "@modules/users/entities/user.schema";
-import CreateUserUseCase from "@modules/users/use-cases/create-user/create-user.use-case";
-import container from "@shared/container/di/base.di";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-const signUpBodySchema = userEntitySchema.pick({
-  email: true,
-  username: true,
-  password: true,
-});
+import CreateUserUseCase from '@modules/users/use-cases/create-user/create-user.use-case';
+
+import container from '@shared/container/di/base.di';
+
+import { signUpBodySchema } from './sign-up-schema';
 
 export default class SignUpController {
   public async create(
     request: Request,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Response | void> {
     const body = signUpBodySchema.parse(request.body);
 
     try {
-      const createUserUseCase = await container.getAsync<CreateUserUseCase>(
-        CreateUserUseCase
-      );
+      const createUserUseCase =
+        await container.getAsync<CreateUserUseCase>(CreateUserUseCase);
 
       await createUserUseCase.execute(body);
-      return response.status(201).send();
+      return response.status(204).send();
     } catch (error) {
       next(error);
     }
