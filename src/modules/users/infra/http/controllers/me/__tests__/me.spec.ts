@@ -1,13 +1,15 @@
 import { meRequest } from './me.request';
+import { loginBodyRequest } from '../../login/__tests__/login.mocks';
 import { loginRequest } from '../../login/__tests__/login.request';
+import { signUpBodyRequest } from '../../sign-up/__tests__/sign-up.mocks';
 import { signUpRequest } from '../../sign-up/__tests__/sign-up.request';
 
 describe('USERS -> Me', () => {
   let token: string;
 
   beforeAll(async () => {
-    const response = await signUpRequest().then(async () => {
-      const { body } = await loginRequest();
+    const response = await signUpRequest(signUpBodyRequest).then(async () => {
+      const { body } = await loginRequest(loginBodyRequest);
 
       return body;
     });

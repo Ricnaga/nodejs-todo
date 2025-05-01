@@ -4,7 +4,7 @@ import CreateUserUseCase from '@modules/users/use-cases/create-user/create-user.
 
 import container from '@shared/container/di/base.di';
 
-import { signUpBodySchema } from './sign-up-schema';
+import { signUpBodySchema } from './sign-up.schema';
 
 export default class SignUpController {
   public async create(

@@ -1,15 +1,18 @@
-import { updateBodyRequest, updateRequest } from './update.request';
+import { updateBodyRequest } from './update.mocks';
+import { updateRequest } from './update.request';
+import { loginBodyRequest } from '../../login/__tests__/login.mocks';
 import { loginRequest } from '../../login/__tests__/login.request';
 import { meRequest } from '../../me/__tests__/me.request';
+import { signUpBodyRequest } from '../../sign-up/__tests__/sign-up.mocks';
 import { signUpRequest } from '../../sign-up/__tests__/sign-up.request';
 
-describe('USERS -> Update', () => {
+describe('USERS -> Update by User ID', () => {
   let token: string;
   let userId: string;
 
   beforeAll(async () => {
-    const response = await signUpRequest().then(async () => {
-      const { body } = await loginRequest();
+    const response = await signUpRequest(signUpBodyRequest).then(async () => {
+      const { body } = await loginRequest(loginBodyRequest);
 
       return body;
     });
