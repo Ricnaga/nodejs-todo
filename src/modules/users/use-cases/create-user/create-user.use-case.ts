@@ -1,17 +1,12 @@
-import IUsersRepository from "@modules/users/repositories/users.interface";
-import {
-  hashProviderId,
-  usersRepositoryId,
-} from "@shared/container/di/types";
-import IHashProvider from "@shared/container/providers/HashProvider/models/hash-provider.interface";
-import AppError from "@shared/errors/app.error";
-import { inject, injectable } from "inversify";
+import { inject, injectable } from 'inversify';
 
-interface IRequest {
-  email: string;
-  username: string;
-  password: string;
-}
+import IUsersRepository from '@modules/users/repositories/users.interface';
+
+import { hashProviderId, usersRepositoryId } from '@shared/container/di/types';
+import IHashProvider from '@shared/container/providers/HashProvider/models/hash-provider.interface';
+import AppError from '@shared/errors/app.error';
+
+import { CreateUserUseCaseRequest } from './create-user.schema';
 
 @injectable()
 export default class CreateUserUseCase {
@@ -19,17 +14,17 @@ export default class CreateUserUseCase {
     @inject(usersRepositoryId)
     private readonly usersRepository: IUsersRepository,
     @inject(hashProviderId)
-    private readonly hashProvider: IHashProvider
+    private readonly hashProvider: IHashProvider,
   ) {}
 
-  public async execute(data: IRequest): Promise<void> {
+  public async execute(data: CreateUserUseCaseRequest): Promise<void> {
     const userFoundByEmail = await this.usersRepository.findByEmail(data.email);
     const userFoundByUsername = await this.usersRepository.findByUsername(
-      data.username
+      data.username,
     );
 
     if (userFoundByEmail || userFoundByUsername) {
-      throw new AppError("Username/email ja foram cadastrados");
+      throw new AppError('Username/email ja foram cadastrados');
     }
 
     const hashPassword = await this.hashProvider.createHash(data.password);

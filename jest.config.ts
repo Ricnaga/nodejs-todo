@@ -5,10 +5,10 @@ import { compilerOptions } from './tsconfig.json';
 const config: JestConfigWithTsJest = {
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/modules/**/infra/http/controllers/**/*.[jt]s',
-    '!<rootDir>/src/modules/**/infra/http/controllers/**/*.schema.[jt]s',
-    '<rootDir>/src/modules/**/use-cases/**/*.[jt]s',
-    '!<rootDir>/src/modules/**/infra/http/controllers/**/__tests__/**/*',
+    '<rootDir>/src/modules/**/controllers/**/*.controller.[jt]s',
+    '<rootDir>/src/modules/**/use-cases/**/*.use-case.[jt]s',
+    '!<rootDir>/src/modules/**/__tests__/**/*',
+    '!<rootDir>/src/modules/**/*.schema.[jt]s',
     '!**/*.d.ts',
   ],
   coverageReporters: ['text', 'text-summary', 'lcov', 'html'],
@@ -29,7 +29,10 @@ const config: JestConfigWithTsJest = {
   preset: 'ts-jest',
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/**/__tests__/**/*.spec.ts'],
+  testMatch: [
+    '<rootDir>/**/__tests__/**/*.spec.ts',
+    '<rootDir>/**/__tests__/**/*.test.ts',
+  ],
   testPathIgnorePatterns: ['/node_modules/'],
 };
 
