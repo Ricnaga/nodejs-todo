@@ -5,7 +5,7 @@ import cors from 'cors';
 
 import express from 'express';
 
-import { handleErrors } from '@shared/errors/utils.error';
+import { handleErrors } from '@shared/errors/error.utils';
 
 import initDocsServer from './docs';
 import routes from './routes';
