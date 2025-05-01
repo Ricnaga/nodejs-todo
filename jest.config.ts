@@ -6,9 +6,9 @@ const config: JestConfigWithTsJest = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/modules/**/infra/http/controllers/**/*.[jt]s',
+    '!<rootDir>/src/modules/**/infra/http/controllers/**/*.schema.[jt]s',
     '<rootDir>/src/modules/**/use-cases/**/*.[jt]s',
-    '<rootDir>/src/modules/**/infra/http/controllers/__tests__/*.spec.[jt]s',
-    '<rootDir>/src/modules/**/use-cases/*.test.[jt]s',
+    '!<rootDir>/src/modules/**/infra/http/controllers/**/__tests__/**/*',
     '!**/*.d.ts',
   ],
   coverageReporters: ['text', 'text-summary', 'lcov', 'html'],
