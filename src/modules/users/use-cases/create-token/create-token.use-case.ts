@@ -11,11 +11,10 @@ import {
 import IHashProvider from '@shared/container/providers/HashProvider/models/hash-provider.interface';
 import AppError from '@shared/errors/app.error';
 
-import { CreateTokenUseCaseRequest } from './create-token.schema';
-
-interface IResponse {
-  token: string;
-}
+import {
+  CreateTokenUseCaseRequest,
+  CreateTokenUseCaseResponse,
+} from './create-token.schema';
 
 @injectable()
 class CreateTokenUseCase {
@@ -28,7 +27,9 @@ class CreateTokenUseCase {
     private readonly hashProvider: IHashProvider,
   ) {}
 
-  public async execute(data: CreateTokenUseCaseRequest): Promise<IResponse> {
+  public async execute(
+    data: CreateTokenUseCaseRequest,
+  ): Promise<CreateTokenUseCaseResponse> {
     const userFound = await this.usersRepository.findByUsername(data.username);
 
     if (!userFound) {

@@ -2,11 +2,23 @@ import { z } from 'zod';
 
 import { userEntitySchema } from '@modules/users/entities/user.schema';
 
-export const createTokenSchema = userEntitySchema
+const createTokenRequestSchema = userEntitySchema
   .pick({
     username: true,
     password: true,
   })
   .required();
 
-export type CreateTokenUseCaseRequest = z.infer<typeof createTokenSchema>;
+export type CreateTokenUseCaseRequest = z.infer<
+  typeof createTokenRequestSchema
+>;
+
+const createTokenResponseSchema = z
+  .object({
+    token: z.string(),
+  })
+  .required();
+
+export type CreateTokenUseCaseResponse = z.infer<
+  typeof createTokenResponseSchema
+>;

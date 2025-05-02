@@ -5,12 +5,10 @@ import IUsersRepository from '@modules/users/repositories/users.interface';
 import { usersRepositoryId } from '@shared/container/di/types';
 import AppError from '@shared/errors/app.error';
 
-import { ListUserUseCaseRequest } from './list-user.schema';
-
-interface IResponse {
-  username: string;
-  id: string;
-}
+import {
+  ListUserUseCaseRequest,
+  ListUserUseCaseResponse,
+} from './list-user.schema';
 
 @injectable()
 export default class ListUserUseCase {
@@ -19,7 +17,9 @@ export default class ListUserUseCase {
     private readonly usersRepository: IUsersRepository,
   ) {}
 
-  public async execute(data: ListUserUseCaseRequest): Promise<IResponse> {
+  public async execute(
+    data: ListUserUseCaseRequest,
+  ): Promise<ListUserUseCaseResponse> {
     if (!data.id)
       throw new AppError(
         'Você não possui informações desse usuário para listagem',
