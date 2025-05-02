@@ -1,4 +1,5 @@
 import User from '@modules/users/entities/user.entity';
+import { mockUser } from '@modules/users/entities/user.mock';
 import { mockTokenRepository } from '@modules/users/repositories/__mocks__/token-repository.mocks';
 import { mockUsersRepository } from '@modules/users/repositories/__mocks__/users-repository.mocks';
 
@@ -7,13 +8,6 @@ import AppError from '@shared/errors/app.error';
 
 import CreateTokenUseCase from '../create-token.use-case';
 import { mockCreateToken } from './create-token.mock';
-
-const user: User = {
-  id: 'mock_user-id',
-  username: 'mock_user_username',
-  password: 'mock_hashed-password',
-  email: 'mock_user_email@example.com',
-};
 
 describe('USE-CASE -> Create Token', () => {
   let createTokenUseCase: CreateTokenUseCase;
@@ -27,7 +21,7 @@ describe('USE-CASE -> Create Token', () => {
   });
 
   it('should create a new token', async () => {
-    mockUsersRepository.findByUsername.mockResolvedValue(user);
+    mockUsersRepository.findByUsername.mockResolvedValue(mockUser);
     mockHashProvider.compareHash.mockResolvedValue(true);
     mockTokenRepository.create.mockResolvedValue('generated-token');
 
@@ -39,7 +33,7 @@ describe('USE-CASE -> Create Token', () => {
 
     expect(mockHashProvider.compareHash).toHaveBeenCalledWith(
       mockCreateToken.password,
-      user.password,
+      mockUser.password,
     );
 
     expect(result).toEqual({ token: 'generated-token' });
@@ -54,7 +48,7 @@ describe('USE-CASE -> Create Token', () => {
   });
 
   it('should throw an error if password is incorrect', async () => {
-    mockUsersRepository.findByUsername.mockResolvedValue(user);
+    mockUsersRepository.findByUsername.mockResolvedValue(mockUser);
     mockHashProvider.compareHash.mockResolvedValue(false);
 
     await expect(
