@@ -1,23 +1,15 @@
-import IUsersRepository from '@modules/users/repositories/users.interface';
+import { mockUsersRepository } from '@modules/users/repositories/__mocks__/users-repository.mocks';
 
-import IHashProvider from '@shared/container/providers/HashProvider/models/hash-provider.interface';
+import { mockHashProvider } from '@shared/container/providers/HashProvider/__mocks__/hash-provider.mocks';
 import AppError from '@shared/errors/app.error';
 
 import CreateUserUseCase from '../create-user.use-case';
-import {
-  hashProviderFactory,
-  mockCreateUser,
-  usersRepositoryFactory,
-} from './create-user.mocks';
+import { mockCreateUser } from './create-user.mocks';
 
 describe('USE-CASE -> Create User', () => {
   let createUserUseCase: CreateUserUseCase;
-  let mockUsersRepository: jest.Mocked<IUsersRepository>;
-  let mockHashProvider: jest.Mocked<IHashProvider>;
 
   beforeAll(() => {
-    mockUsersRepository = usersRepositoryFactory(); // cria o mock uma vez antes de todos os testes
-    mockHashProvider = hashProviderFactory(); // cria o mock uma vez antes de todos os testes
     createUserUseCase = new CreateUserUseCase(
       mockUsersRepository,
       mockHashProvider,
