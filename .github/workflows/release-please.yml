@@ -3,7 +3,7 @@ name: Release Please
 on:
   push:
     branches:
-      - develop
+      - develop # Configurado para rodar na branch develop
 
 jobs:
   release:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -26,6 +26,6 @@ jobs:
         uses: googleapis/release-please-action@v3
         with:
           release-type: node
-          versioning-strategy: increase
+          versioning-strategy: auto # Pode ser 'auto', 'increment' ou 'none'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
