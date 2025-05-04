@@ -3,11 +3,10 @@ name: Release Please
 on:
   push:
     branches:
-      - develop # Configurado para rodar na branch develop
+      - develop
 
 jobs:
   release:
-    name: Release Please
     runs-on: ubuntu-latest
 
     steps:
@@ -17,15 +16,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-      - name: Release Please
+      - name: Install dependencies with pnpm
+        run: pnpm install
+
+      - name: Run Release Please
         uses: googleapis/release-please-action@v3
         with:
           release-type: node
-          versioning-strategy: patch
+          versioning-strategy: increment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
