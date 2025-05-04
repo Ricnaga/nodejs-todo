@@ -1,4 +1,4 @@
-name: release-please
+name: Release Please
 
 on:
   push:
@@ -7,15 +7,25 @@ on:
 
 jobs:
   release:
+    name: Release Please
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Run release-please
-        uses: googleapis/release-please-action@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          config-file: .release-please-config.json
-          manifest-file: .release-please-manifest.json
-          target-branch: develop
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Release Please
+        uses: googleapis/release-please-action@v3
+        with:
+          release-type: node
+          versioning-strategy: increase
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
