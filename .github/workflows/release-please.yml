@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '16'
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -29,5 +29,6 @@ jobs:
         with:
           release-type: node
           versioning-strategy: patch
+          changelog-types: feat,fix,docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
