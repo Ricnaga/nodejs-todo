@@ -29,6 +29,6 @@ jobs:
         with:
           release-type: node
           versioning-strategy: patch
-          changelog-types: feat,fix,docs
+          changelog-types: '["feat", "fix", "docs"]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
