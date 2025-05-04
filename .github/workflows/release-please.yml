@@ -26,6 +26,6 @@ jobs:
         uses: googleapis/release-please-action@v3
         with:
           release-type: node
-          versioning-strategy: auto # Pode ser 'auto', 'increment' ou 'none'
+          versioning-strategy: patch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
