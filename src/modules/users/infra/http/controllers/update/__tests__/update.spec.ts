@@ -1,3 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
+
+import container from '@shared/container';
+
 import { updateBodyRequest } from './update.mocks';
 import { updateRequest } from './update.request';
 import { loginBodyRequest } from '../../login/__tests__/login.mocks';
@@ -5,6 +9,7 @@ import { loginRequest } from '../../login/__tests__/login.request';
 import { meRequest } from '../../me/__tests__/me.request';
 import { signUpBodyRequest } from '../../sign-up/__tests__/sign-up.mocks';
 import { signUpRequest } from '../../sign-up/__tests__/sign-up.request';
+import UpdateController from '../update.controller';
 
 describe('USERS -> Update by User ID', () => {
   let token: string;
@@ -44,5 +49,32 @@ describe('USERS -> Update by User ID', () => {
     });
 
     expect(response.statusCode).toBe(500);
+  });
+
+  it('should call next with error if updateUserUseCase throws', async () => {
+    const fakeError = new Error('Simulated failure');
+
+    const req = {
+      body: updateBodyRequest,
+      params: { id: userId },
+      user: { id: 'user_id' },
+    } as unknown as Request;
+
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    } as unknown as Response;
+
+    const next: NextFunction = jest.fn();
+    jest.spyOn(container, 'getAsync').mockResolvedValueOnce({
+      execute: jest.fn().mockRejectedValue(fakeError),
+    });
+
+    const controller = new UpdateController();
+    await controller.update(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(fakeError);
+    expect(res.status).not.toHaveBeenCalled();
+    expect(res.json).not.toHaveBeenCalled();
   });
 });
