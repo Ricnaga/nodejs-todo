@@ -9,7 +9,7 @@ const createTodoRequestSchema = todoEntitySchema
   })
   .required()
   .extend({
-    userId: todoEntitySchema.shape.userId.optional(), // <- deixa userId opcional
+    userId: todoEntitySchema.shape.userId.optional(),
   });
 
 export type CreateTodoUseCaseRequest = z.infer<typeof createTodoRequestSchema>;
