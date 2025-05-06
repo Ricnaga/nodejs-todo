@@ -2,9 +2,14 @@ import request from 'supertest';
 
 import { app } from '@shared/infra/http/app';
 
-import { UpdateBodyRequest, UpdateParamsRequest } from '../update.schema';
+import {
+  UpdateUserBodyRequest,
+  UpdateUserParamsRequest,
+} from '../update.schema';
 
-interface IUpdateRequest extends UpdateParamsRequest, UpdateBodyRequest {
+interface IUpdateRequest
+  extends UpdateUserParamsRequest,
+    UpdateUserBodyRequest {
   token: string;
 }
 

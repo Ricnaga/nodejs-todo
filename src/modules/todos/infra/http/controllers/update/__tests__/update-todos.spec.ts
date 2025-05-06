@@ -7,13 +7,14 @@ import { signUpRequest } from '@modules/users/infra/http/controllers/sign-up/__t
 
 import container from '@shared/container';
 
+import { updateTodoBodyRequest } from './update-todos.mocks';
+import { updateTodoRequest } from './update-todos.request';
 import { createTodoBodyRequest } from '../../create/__tests__/create-todos.mocks';
 import { createTodoRequest } from '../../create/__tests__/create-todos.request';
 import { listTodoRequest } from '../../list/__tests__/list-todos.request';
-import DeleteTodoController from '../delete-todos.controller';
-import { deleteTodoRequest } from './delete-todos.request';
+import UpdateTodoController from '../update-todos.controller';
 
-describe('Todos -> Delete Todo', () => {
+describe('Todos -> Update by Todo ID', () => {
   let token: string;
   let todoId: string;
 
@@ -34,22 +35,31 @@ describe('Todos -> Delete Todo', () => {
     token = response.token;
   });
 
-  it('should be able to delete todo', async () => {
-    const response = await deleteTodoRequest({ id: todoId }, token);
+  it('should be able to update todo', async () => {
+    const response = await updateTodoRequest({
+      ...updateTodoBodyRequest,
+      id: todoId,
+      token,
+    });
 
-    expect(response.statusCode).toBe(204);
+    expect(response.statusCode).toBe(200);
   });
 
-  it('should not be able to delete a todo when is unauthorized', async () => {
-    const response = await deleteTodoRequest({ id: todoId }, '');
+  it('should not be able to update a todo when is unauthorized', async () => {
+    const response = await updateTodoRequest({
+      ...updateTodoBodyRequest,
+      id: todoId,
+      token: '',
+    });
 
     expect(response.statusCode).toBe(401);
   });
 
-  it('should call next with error if deleteTodoUseCase throws', async () => {
+  it('should call next with error if updateTodoUseCase throws', async () => {
     const fakeError = new Error('Simulated failure');
 
     const req = {
+      body: updateTodoBodyRequest,
       params: {
         id: todoId,
       },
@@ -67,8 +77,8 @@ describe('Todos -> Delete Todo', () => {
       execute: jest.fn().mockRejectedValue(fakeError),
     });
 
-    const controller = new DeleteTodoController();
-    await controller.delete(req, res, next);
+    const controller = new UpdateTodoController();
+    await controller.update(req, res, next);
 
     expect(next).toHaveBeenCalledWith(fakeError);
     expect(res.status).not.toHaveBeenCalled();

@@ -2,11 +2,13 @@ import { z } from 'zod';
 
 import { userEntitySchema } from '@modules/users/entities/user.schema';
 
-export const updateBodySchema = userEntitySchema.omit({ id: true }).required();
+export const updateUsersBodySchema = userEntitySchema
+  .omit({ id: true })
+  .required();
 
-export const updateParamsSchema = userEntitySchema
+export const updateUsersParamsSchema = userEntitySchema
   .pick({ id: true })
   .required();
 
-export type UpdateBodyRequest = z.infer<typeof updateBodySchema>;
-export type UpdateParamsRequest = z.infer<typeof updateParamsSchema>;
+export type UpdateUserBodyRequest = z.infer<typeof updateUsersBodySchema>;
+export type UpdateUserParamsRequest = z.infer<typeof updateUsersParamsSchema>;

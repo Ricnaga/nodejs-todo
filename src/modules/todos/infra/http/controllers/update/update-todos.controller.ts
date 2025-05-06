@@ -1,41 +1,27 @@
-import { todoEntitySchema } from "@modules/todos/entities/todos.schema";
-import UpdateTodosUseCase from "@modules/todos/use-cases/update-todo/update-todo.use-case";
-import container from "@shared/container";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-/**
- * @swagger
- * /todos/{id}:
- *  patch:
- *    tags:
- *      - Todos
- *    summary: Retrieve a list of JSONPlaceholder users
- *    description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
- */
+import UpdateTodosUseCase from '@modules/todos/use-cases/update-todo/update-todo.use-case';
 
-const updateBodySchema = todoEntitySchema.pick({
-  description: true,
-  title: true,
-});
+import container from '@shared/container';
 
-const updateParamsSchema = todoEntitySchema.pick({
-  id: true,
-});
+import {
+  updateTodoBodySchema,
+  updateTodoParamsSchema,
+} from './update-todos.schema';
 
 export default class UpdateTodoController {
   public async update(
     request: Request,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Response | void> {
     try {
-      const body = updateBodySchema.parse(request.body);
-      const { id } = updateParamsSchema.parse(request.params);
+      const body = updateTodoBodySchema.parse(request.body);
+      const { id } = updateTodoParamsSchema.parse(request.params);
       const { id: userId } = request.user;
 
-      const updateTodosUseCase = await container.getAsync<UpdateTodosUseCase>(
-        UpdateTodosUseCase
-      );
+      const updateTodosUseCase =
+        await container.getAsync<UpdateTodosUseCase>(UpdateTodosUseCase);
 
       await updateTodosUseCase.execute({
         ...body,
