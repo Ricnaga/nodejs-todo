@@ -1,10 +1,9 @@
 import { mockTodosRepository } from '@modules/todos/repositories/__mocks__/todos.repository.mocks';
 
-import { mockHashProvider } from '@shared/container/providers/HashProvider/__mocks__/hash-provider.mocks';
 import AppError from '@shared/errors/app.error';
 
-import { mockCreateTodo } from './create-todo.mocks';
 import CreateTodoUseCase from '../create-todo.use-case';
+import { mockCreateTodo } from './create-todo.mocks';
 
 describe('USE-CASE -> Create Todo', () => {
   let createTodoUseCase: CreateTodoUseCase;

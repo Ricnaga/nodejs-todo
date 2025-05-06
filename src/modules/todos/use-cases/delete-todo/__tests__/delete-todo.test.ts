@@ -1,10 +1,9 @@
 import { mockTodosRepository } from '@modules/todos/repositories/__mocks__/todos.repository.mocks';
 
-import { mockHashProvider } from '@shared/container/providers/HashProvider/__mocks__/hash-provider.mocks';
 import AppError from '@shared/errors/app.error';
 
-import { mockDeleteTodo } from './delete-todo.mocks';
 import DeleteTodosUseCase from '../delete-todo.use-case';
+import { mockDeleteTodo } from './delete-todo.mocks';
 
 describe('USE-CASE -> Delete Todo', () => {
   let deleteTodosUseCase: DeleteTodosUseCase;
